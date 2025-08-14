@@ -1,4 +1,4 @@
-import { GameService } from './servicio/servicio.js';
+import { GameService } from './servicios/GameService.js';
 import { Arma } from './juego/arma.js';
 import { Pocion } from './juego/pocion.js';
 import { Hechizo } from './juego/hechizo.js';
@@ -15,15 +15,15 @@ class Main {
 
   async mostrarMenu() {
     console.log('\n' + '='.repeat(30));
-    console.log('🎮 BIENVENIDO AL RPG GAME 🎮');
+    console.log('*** Polo Adventure ***');
     console.log('='.repeat(30));
-    console.log('1. ⚔️  Crear Héroe');
-    console.log('2. 👥 Ver Héroes');
-    console.log('3. ⚡ Iniciar Combate');
-    console.log('4. 🎒 Ver Inventario de Héroe');
-    console.log('5. 🛡️  Equipar Arma');
-    console.log('6. 🧪 Usar Item');
-    console.log('7.  Salir');
+    console.log('1. [*] Crear Héroe');
+    console.log('2. [+] Ver Héroes');
+    console.log('3. [!] Iniciar Combate');
+    console.log('4. [#] Ver Inventario de Héroe');
+    console.log('5. [=] Equipar Arma');
+    console.log('6. [o] Usar Item');
+    console.log('7.     Salir');
     console.log('='.repeat(30));
 
     const opcion = await this.pregunta('Selecciona una opción (1-7): ');
@@ -35,7 +35,7 @@ class Main {
   }
 
   async ejecutar() {
-    console.log('🎮 Iniciando RPG Game...\n');
+    console.log('*** Iniciando RPG Game...\n');
     let continuar = true;
 
     while (continuar) {
@@ -67,11 +67,11 @@ class Main {
             break;
           default:
             console.log(
-              '❌ Opción no válida. Por favor selecciona una opción del 1 al 7.'
+              '[X] Opción no válida. Por favor selecciona una opción del 1 al 7.'
             );
         }
       } catch (error) {
-        console.log(`❌ Error: ${error.message}`);
+        console.log(`[X] Error: ${error.message}`);
       }
 
       if (continuar) {
@@ -83,65 +83,63 @@ class Main {
   }
 
   async crearHeroe() {
-    console.log('\n🏗️  CREAR NUEVO HÉROE');
+    console.log('\n*** CREAR NUEVO HÉROE ***');
     console.log('-'.repeat(20));
 
     const nombre = await this.pregunta('Nombre del héroe: ');
     if (!nombre.trim()) {
-      console.log('❌ El nombre no puede estar vacío.');
+      console.log('ERROR: El nombre no puede estar vacío.');
       return;
     }
 
     console.log('Tipos disponibles:');
-    console.log('1. ⚔️  Guerrero (Alta vida y fuerza)');
-    console.log('2. 🧙 Mago (Mana y ataques mágicos)');
+    console.log('1. [*] Guerrero (Alta vida y fuerza)');
+    console.log('2. [+] Mago (Mana y ataques mágicos)');
 
     const tipoOpcion = await this.pregunta('Selecciona tipo (1-2): ');
     const tipos = { 1: 'guerrero', 2: 'mago' };
     const tipo = tipos[tipoOpcion];
 
     if (!tipo) {
-      console.log('❌ Tipo no válido.');
+      console.log('ERROR: Tipo no válido.');
       return;
     }
 
     try {
       const heroe = this.gameService.crearHero(tipo, nombre);
       console.log(
-        `✅ ¡${heroe.nombre} el ${tipo} ha sido creado exitosamente!`
+        `OK: ¡${heroe.nombre} el ${tipo} ha sido creado exitosamente!`
       );
-      console.log(`   💚 Vida: ${heroe.vida}/${heroe.vidaMaxima}`);
+      console.log(`   HP: ${heroe.vida}/${heroe.vidaMaxima}`);
       if (tipo === 'mago') {
-        console.log(`   💙 Mana: ${heroe.mana}/${heroe.manaMaximo}`);
+        console.log(`   MP: ${heroe.mana}/${heroe.manaMaximo}`);
       }
     } catch (error) {
-      console.log(`❌ Error: ${error.message}`);
+      console.log(`ERROR: ${error.message}`);
     }
   }
 
   mostrarHeroes() {
     const heroes = this.gameService.obtenerHeroes();
     if (heroes.length === 0) {
-      console.log('\n📭 No hay héroes creados. ¡Crea uno primero!');
+      console.log('\nNo hay héroes creados. ¡Crea uno primero!');
       return;
     }
 
-    console.log('\n👥 HÉROES DISPONIBLES');
+    console.log('\n*** HÉROES DISPONIBLES ***');
     console.log('-'.repeat(30));
     heroes.forEach((heroe, index) => {
       console.log(`${index + 1}. ${heroe.nombre}`);
-      console.log(`   ⭐ Nivel: ${heroe.nivel}`);
-      console.log(
-        `   ✨ Experiencia: ${heroe.experiencia}/${heroe.nivel * 100}`
-      );
-      console.log(`   💚 Vida: ${heroe.vida}/${heroe.vidaMaxima}`);
+      console.log(`   Nivel: ${heroe.nivel}`);
+      console.log(`   Experiencia: ${heroe.experiencia}/${heroe.nivel * 100}`);
+      console.log(`   HP: ${heroe.vida}/${heroe.vidaMaxima}`);
       if (heroe.mana !== undefined) {
-        console.log(`   💙 Mana: ${heroe.mana}/${heroe.manaMaximo}`);
+        console.log(`   MP: ${heroe.mana}/${heroe.manaMaximo}`);
       }
       if (heroe.armaEquipada) {
-        console.log(`   ⚔️  Arma: ${heroe.armaEquipada.nombre}`);
+        console.log(`   Arma: ${heroe.armaEquipada.nombre}`);
       }
-      console.log(`   🎒 Items: ${heroe.inventario.cantidad}`);
+      console.log(`   Items: ${heroe.inventario.cantidad}`);
       console.log('');
     });
   }
@@ -149,43 +147,43 @@ class Main {
   async verInventario() {
     const heroes = this.gameService.obtenerHeroes();
     if (heroes.length === 0) {
-      console.log('\n📭 No hay héroes creados.');
+      console.log('\n[?] No hay héroes creados.');
       return;
     }
 
     const heroe = await this.seleccionarHeroe(heroes);
     if (!heroe) return;
 
-    console.log(`\n🎒 INVENTARIO DE ${heroe.nombre.toUpperCase()}`);
+    console.log(`\n*** INVENTARIO DE ${heroe.nombre.toUpperCase()} ***`);
     console.log('-'.repeat(30));
 
     const items = heroe.inventario.obtenerItems();
     if (items.length === 0) {
-      console.log('📭 El inventario está vacío.');
+      console.log('El inventario está vacío.');
       return;
     }
 
     items.forEach((item, index) => {
       if (item instanceof Arma) {
         console.log(
-          `${index + 1}. ⚔️  ${item.nombre} (Daño: ${item.danio}, Valor: ${
+          `${index + 1}. [*] ${item.nombre} (Daño: ${item.danio}, Valor: ${
             item.valor
           })`
         );
       } else if (item instanceof Pocion) {
         console.log(
-          `${index + 1}. 🧪 ${item.nombre} (Curación: ${
+          `${index + 1}. [o] ${item.nombre} (Curación: ${
             item.curacion
           }, Valor: ${item.valor})`
         );
       } else if (item instanceof Hechizo) {
         console.log(
-          `${index + 1}. 🔮 ${item.nombre} (Poder: ${item.poder}, Costo Mana: ${
-            item.costoMana
-          }, Valor: ${item.valor})`
+          `${index + 1}. [+] ${item.nombre} (Poder: ${
+            item.poder
+          }, Costo Mana: ${item.costoMana}, Valor: ${item.valor})`
         );
       } else {
-        console.log(`${index + 1}. 📦 ${item.nombre} (Valor: ${item.valor})`);
+        console.log(`${index + 1}. [#] ${item.nombre} (Valor: ${item.valor})`);
       }
     });
   }
@@ -193,7 +191,7 @@ class Main {
   async equiparArma() {
     const heroes = this.gameService.obtenerHeroes();
     if (heroes.length === 0) {
-      console.log('\n📭 No hay héroes creados.');
+      console.log('\n[?] No hay héroes creados.');
       return;
     }
 
@@ -204,11 +202,11 @@ class Main {
       .obtenerItems()
       .filter((item) => item instanceof Arma);
     if (armas.length === 0) {
-      console.log('\n❌ No hay armas en el inventario.');
+      console.log('\n No hay armas en el inventario.');
       return;
     }
 
-    console.log(`\n⚔️  ARMAS DE ${heroe.nombre.toUpperCase()}`);
+    console.log(`\n[*] ARMAS DE ${heroe.nombre.toUpperCase()}`);
     console.log('-'.repeat(30));
     armas.forEach((arma, index) => {
       const equipada =
@@ -228,28 +226,28 @@ class Main {
         heroe.nombre,
         armas[armaIndex].nombre
       );
-      console.log(`✅ ${resultado}`);
+      console.log(`[+] ${resultado}`);
     } else {
-      console.log('❌ Selección inválida.');
+      console.log('[X] Selección inválida.');
     }
   }
 
   async iniciarCombate() {
     const heroes = this.gameService.obtenerHeroes();
     if (heroes.length === 0) {
-      console.log('\n📭 Primero debes crear un héroe.');
+      console.log('\n[?] Primero debes crear un héroe.');
       return;
     }
 
     const heroe = await this.seleccionarHeroe(heroes);
     if (!heroe) return;
 
-    console.log('\n🐉 SELECCIONA TU ENEMIGO');
+    console.log('\n[*] SELECCIONA TU ENEMIGO');
     console.log('-'.repeat(25));
-    console.log('1. 👹 Goblin (Fácil)');
-    console.log('2. 🧌 Orc (Medio)');
-    console.log('3. 💀 Esqueleto (Fácil)');
-    console.log('4. 🐲 Dragón (Difícil)');
+    console.log('1. Goblin (Fácil)');
+    console.log('2. Orc (Medio)');
+    console.log('3. Esqueleto (Fácil)');
+    console.log('4. Dragón (Difícil)');
 
     const enemyChoice = await this.pregunta('Selecciona enemigo (1-4): ');
     const enemigos = {
@@ -261,7 +259,7 @@ class Main {
 
     const enemyData = enemigos[enemyChoice];
     if (!enemyData) {
-      console.log('❌ Selección inválida.');
+      console.log('[X] Selección inválida.');
       return;
     }
 
@@ -269,7 +267,7 @@ class Main {
       enemyData.nombre,
       enemyData.tipo
     );
-    console.log(`\n⚔️  ¡${heroe.nombre} se enfrenta a ${monstruo.nombre}!`);
+    console.log(`\n[*] ¡${heroe.nombre} se enfrenta a ${monstruo.nombre}!`);
 
     const resultado = this.gameService.combate(heroe, monstruo);
     console.log('\n' + '='.repeat(50));
@@ -281,7 +279,7 @@ class Main {
     console.log('\nSelecciona un héroe:');
     heroes.forEach((heroe, index) => {
       console.log(
-        `${index + 1}. ${heroe.nombre} (❤️  ${heroe.vida}/${heroe.vidaMaxima})`
+        `${index + 1}. ${heroe.nombre} ([+] ${heroe.vida}/${heroe.vidaMaxima})`
       );
     });
 
@@ -289,7 +287,7 @@ class Main {
     const heroe = heroes[parseInt(seleccion) - 1];
 
     if (!heroe) {
-      console.log('❌ Selección inválida');
+      console.log('[X] Selección inválida');
       return null;
     }
 
@@ -299,7 +297,7 @@ class Main {
   async usarItem() {
     const heroes = this.gameService.obtenerHeroes();
     if (heroes.length === 0) {
-      console.log('\n📭 No hay héroes creados.');
+      console.log('\n[?] No hay héroes creados.');
       return;
     }
 
@@ -312,18 +310,18 @@ class Main {
 
     if (itemsUsables.length === 0) {
       console.log(
-        '\n❌ No hay items usables (pociones/hechizos) en el inventario.'
+        '\n[X] No hay items usables (pociones/hechizos) en el inventario.'
       );
       return;
     }
 
-    console.log(`\n🧪 ITEMS USABLES DE ${heroe.nombre.toUpperCase()}`);
+    console.log(`\n[o] ITEMS USABLES DE ${heroe.nombre.toUpperCase()}`);
     console.log('-'.repeat(40));
     itemsUsables.forEach((item, index) => {
       if (item instanceof Pocion) {
-        console.log(`${index + 1}. 🧪 ${item.toString()}`);
+        console.log(`${index + 1}. [o] ${item.toString()}`);
       } else if (item instanceof Hechizo) {
-        console.log(`${index + 1}. 🔮 ${item.toString()}`);
+        console.log(`${index + 1}. [*] ${item.toString()}`);
       }
     });
 
@@ -336,12 +334,12 @@ class Main {
           heroe.nombre,
           itemsUsables[itemIndex].nombre
         );
-        console.log(`✅ ${resultado}`);
+        console.log(`[+] ${resultado}`);
       } catch (error) {
-        console.log(`❌ Error: ${error.message}`);
+        console.log(`[X] Error: ${error.message}`);
       }
     } else {
-      console.log('❌ Selección inválida.');
+      console.log('[X] Selección inválida.');
     }
   }
 }

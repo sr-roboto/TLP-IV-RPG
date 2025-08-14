@@ -20,6 +20,7 @@
   "homepage": "https://github.com/sr-roboto/TLP-IV-RPG#readme",
   "description": "",
   "dependencies": {
+    "figlet": "^1.8.2",
     "nodemon": "^3.1.10"
   }
 }
