@@ -172,12 +172,20 @@ class Main {
             item.valor
           })`
         );
-      } else {
+      } else if (item instanceof Pocion) {
         console.log(
           `${index + 1}. 🧪 ${item.nombre} (Curación: ${
             item.curacion
           }, Valor: ${item.valor})`
         );
+      } else if (item instanceof Hechizo) {
+        console.log(
+          `${index + 1}. 🔮 ${item.nombre} (Poder: ${item.poder}, Costo Mana: ${
+            item.costoMana
+          }, Valor: ${item.valor})`
+        );
+      } else {
+        console.log(`${index + 1}. 📦 ${item.nombre} (Valor: ${item.valor})`);
       }
     });
   }
