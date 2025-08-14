@@ -1,6 +1,6 @@
 import { Monstruo } from '../juego/monstruo.js';
 
-export class MonsterService {
+export class MonstruoServicio {
   #monstruos;
   #plantillasMonstruos;
 

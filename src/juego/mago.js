@@ -50,7 +50,7 @@ export class Mago extends Heroe {
     objetivo.recibirDanio(danio);
 
     // Ganar experiencia por atacar
-    this.ganarExperiencia(danio * 0.1);
+    this.ganarExperiencia(Math.floor(danio * 0.1));
 
     return danio;
   }
@@ -79,7 +79,7 @@ export class Mago extends Heroe {
       `¡${this.nombre} lanza BOLA DE FUEGO causando ${danioEspecial} de daño mágico devastador!`
     );
     objetivo.recibirDanio(danioEspecial);
-    this.ganarExperiencia(danioEspecial * 0.15);
+    this.ganarExperiencia(Math.floor(danioEspecial * 0.15));
     return danioEspecial;
   }
 

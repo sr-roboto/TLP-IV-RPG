@@ -1,4 +1,4 @@
-export class CombatService {
+export class CombateServicio {
   constructor() {
     this.maxTurnos = 20;
   }

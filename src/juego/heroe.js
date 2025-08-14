@@ -51,8 +51,9 @@ export class Heroe extends Personaje {
   }
 
   ganarExperiencia(exp) {
-    this.#experiencia += exp;
-    console.log(`${this.nombre} ha ganado ${exp} de experiencia.`);
+    const expEntera = Math.floor(exp);
+    this.#experiencia += expEntera;
+    console.log(`${this.nombre} ha ganado ${expEntera} de experiencia.`);
     console.log(
       `Experiencia actual: ${this.#experiencia}/${this.#nivel * 100}`
     );

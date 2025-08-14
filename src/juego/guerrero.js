@@ -26,7 +26,7 @@ export class Guerrero extends Heroe {
     objetivo.recibirDanio(danio);
 
     // Ganar experiencia por atacar
-    this.ganarExperiencia(danio * 0.1);
+    this.ganarExperiencia(Math.floor(danio * 0.1));
 
     return danio;
   }
@@ -46,7 +46,7 @@ export class Guerrero extends Heroe {
       `¡${this.nombre} usa GOLPE DEVASTADOR causando ${danioEspecial} de daño!`
     );
     objetivo.recibirDanio(danioEspecial);
-    this.ganarExperiencia(danioEspecial * 0.15);
+    this.ganarExperiencia(Math.floor(danioEspecial * 0.15));
     return danioEspecial;
   }
 

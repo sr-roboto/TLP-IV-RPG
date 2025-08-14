@@ -1,4 +1,4 @@
-import { GameService } from './servicios/GameService.js';
+import { JuegoServicio } from './servicios/juegoServicio.js';
 import { Arma } from './juego/arma.js';
 import { Pocion } from './juego/pocion.js';
 import { Hechizo } from './juego/hechizo.js';
@@ -6,7 +6,7 @@ import readline from 'readline';
 
 class Main {
   constructor() {
-    this.gameService = new GameService();
+    this.gameService = new JuegoServicio();
     this.rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
@@ -62,7 +62,7 @@ class Main {
             await this.usarItem();
             break;
           case '7':
-            console.log('👋 ¡Gracias por jugar! ¡Hasta la vista!');
+            console.log('[*] ¡Gracias por jugar! ¡Hasta la vista!');
             continuar = false;
             break;
           default:

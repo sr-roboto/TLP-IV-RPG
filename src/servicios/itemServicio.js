@@ -2,7 +2,7 @@ import { Arma } from '../juego/arma.js';
 import { Pocion } from '../juego/pocion.js';
 import { Hechizo } from '../juego/hechizo.js';
 
-export class ItemFactory {
+export class ItemServicio {
   constructor() {
     this.plantillasArmas = {
       guerrero: [

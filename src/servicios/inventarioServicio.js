@@ -2,7 +2,7 @@ import { Arma } from '../juego/arma.js';
 import { Pocion } from '../juego/pocion.js';
 import { Hechizo } from '../juego/hechizo.js';
 
-export class InventoryService {
+export class InventarioServicio {
   equiparItem(heroe, itemName) {
     if (!heroe) {
       throw new Error('Héroe no encontrado');

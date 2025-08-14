@@ -1,8 +1,8 @@
 import { Guerrero } from '../juego/guerrero.js';
 import { Mago } from '../juego/mago.js';
-import { ItemFactory } from './ItemFactory.js';
+import { ItemServicio } from './itemServicio.js';
 
-export class HeroService {
+export class HeroeServicio {
   #heroes;
 
   constructor() {
@@ -33,13 +33,13 @@ export class HeroService {
   }
 
   #darItemsIniciales(heroe, tipo) {
-    const itemFactory = new ItemFactory();
+    const ItemInicio = new ItemServicio();
 
     if (tipo === 'guerrero') {
-      const items = itemFactory.crearItemsIniciales('guerrero');
+      const items = ItemInicio.crearItemsIniciales('guerrero');
       items.forEach((item) => heroe.inventario.agregarItem(item));
     } else if (tipo === 'mago') {
-      const items = itemFactory.crearItemsIniciales('mago');
+      const items = ItemInicio.crearItemsIniciales('mago');
       items.forEach((item) => heroe.inventario.agregarItem(item));
     }
   }
