@@ -9,7 +9,8 @@ encapsulación.
 ## Características Principales
 
 - **Sistema de Personajes**: Héroes (Guerrero, Mago) y Monstruos
-- **Sistema de Inventario**: Gestión de items (Armas, Pociones)
+- **Sistema de Experiencia y Niveles**: Progresión de héroes
+- **Sistema de Inventario**: Gestión de items (Armas, Pociones, Hechizos)
 - **Sistema de Combate**: Combate por turnos polimórfico
 - **Interfaz CLI**: Menú interactivo en terminal
 
@@ -28,9 +29,8 @@ encapsulación.
     ┌─────────────────────┐    ┌─────────────────┐
     │ + #experiencia      │    │ #poderAtaque    │
     │ + #nivel            │    │ #tipo           │
-    │ + #vidas            │    │ atacar()        │
-    │ + #inventario       │    └─────────────────┘
-    │ + #armaEquipada     │
+    │ + #inventario       │    │ atacar()        │
+    │ + #armaEquipada     │    └─────────────────┘
     │ equiparArma()       │
     │ ganarExperiencia()  │
     └─────────────────────┘
@@ -74,7 +74,7 @@ encapsulación.
 
 - **Propósito:** Características específicas de aventureros controlados por el
   jugador
-- **Añade:** `#experiencia`, `#nivel`, `#vidas`, `#inventario`, `#armaEquipada`
+- **Añade:** `#experiencia`, `#nivel`, `#inventario`, `#armaEquipada`
 - **Nuevos métodos:** `equiparArma()`, `ganarExperiencia()`, `subirNivel()`
 - **Herencia:** Base para Guerrero y Mago
 
@@ -210,10 +210,11 @@ node src/main.js
 2. Seleccionar opción "1" (Crear Héroe)
 3. Ingresar nombre "Aragorn"
 4. Seleccionar tipo "1" (Guerrero)
-5. Seleccionar opción "3" (Iniciar Combate)
-6. Seleccionar héroe creado
-7. Seleccionar enemigo "1" (Goblin)
-8. Observar combate automático
+5. Verificar en opción "2" (Ver Héroes) el nivel y experiencia inicial
+6. Seleccionar opción "3" (Iniciar Combate)
+7. Seleccionar héroe creado
+8. Seleccionar enemigo "1" (Goblin)
+9. Observar combate automático y ganancia de experiencia
 
 ### Flujo 2: Gestión de Inventario
 
@@ -231,21 +232,33 @@ node src/main.js
 3. Observar uso de mana en ataques
 4. Si el mana se agota, el mago no puede atacar
 
-### Flujo 4: Múltiples Héroes
+### Flujo 4: Uso de Hechizos y Pociones
+
+1. Crear un Mago llamado "Gandalf"
+2. Ver inventario (opción 4) - observar "Curación Menor" y "Poción de Mana"
+3. Combatir contra Orc para reducir vida
+4. Seleccionar opción "6" (Usar Item)
+5. Usar "Curación Menor" para recuperar vida (consume mana)
+6. Si el mana está bajo, usar "Poción de Mana" para recuperarlo
+7. Observar cómo diferentes items tienen efectos específicos
+
+### Flujo 5: Sistema de Experiencia y Niveles
+
+1. Crear héroe de cualquier tipo
+2. Ver héroe en opción "2" - observar Nivel 1, Experiencia 0/100
+3. Realizar combate contra monstruo débil (Goblin)
+4. Observar ganancia de experiencia durante el combate
+5. Ver héroe nuevamente - verificar experiencia acumulada
+6. Realizar múltiples combates hasta alcanzar 100 exp
+7. Observar subida de nivel automática y mejora de atributos
+
+### Flujo 6: Múltiples Héroes
 
 1. Crear Guerrero "Gimli"
 2. Crear Mago "Radagast"
 3. Ver lista de héroes (opción 2)
 4. Combatir con cada uno contra diferentes enemigos
-5. Observar diferentes estilos de combate
-
-### Flujo 5: Exploración Completa
-
-1. Crear héroe de cada tipo
-2. Ver inventarios y equipar armas
-3. Ver items disponibles en tienda
-4. Realizar múltiples combates
-5. Observar cómo cambia la vida de los héroes
+5. Observar diferentes estilos de combate y ganancia de experiencia
 
 ## Conceptos Implementados Correctamente
 
@@ -267,10 +280,10 @@ node src/main.js
 
 - **13 tipos de items diferentes**: 5 armas, 4 pociones, 4 hechizos
 - **Sistema de combate polimórfico**: Cada clase ataca diferente
-- **Sistema de experiencia y niveles**: Solo para héroes
+- **Sistema de experiencia y niveles**: Progresión automática de héroes
 - **Gestión de inventarios**: Solo héroes tienen inventario
 - **Equipamiento de armas**: Mejora el daño de ataque
-- **Sistema de vidas**: Los héroes pueden revivir
+- **Sistema de vida única**: Combate directo sin revivals
 
 ## Pruebas Disponibles
 
@@ -300,9 +313,11 @@ node src/main.js          # Juego completo con menú CLI
 ## Posibles Extensiones Futuras
 
 - **Más tipos de héroes**: Arquero, Paladín, Ladrón
-- **Más items**: Armaduras, anillos, pergaminos
+- **Más items y hechizos**: Armaduras, anillos, pergaminos mágicos
 - **Sistema de rareza**: Items comunes, raros, legendarios
-- **Habilidades especiales**: Cooldowns y efectos especiales
-- **Sistema de tienda**: Comprar/vender items
-- **Guardado de partidas**: Persistencia de datos
-- **Más enemigos**: Jefes con habilidades especiales
+- **Habilidades especiales**: Cooldowns y efectos de área
+- **Sistema de tienda**: Comprar/vender items con oro
+- **Guardado de partidas**: Persistencia de progreso del héroe
+- **Más enemigos**: Jefes con habilidades especiales y mayor recompensa
+- **Sistema de guild**: Múltiples héroes trabajando juntos
+- **Mazmorras**: Secuencias de combates con recompensas progresivas
