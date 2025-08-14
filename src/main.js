@@ -130,6 +130,10 @@ class Main {
     console.log('-'.repeat(30));
     heroes.forEach((heroe, index) => {
       console.log(`${index + 1}. ${heroe.nombre}`);
+      console.log(`   ⭐ Nivel: ${heroe.nivel}`);
+      console.log(
+        `   ✨ Experiencia: ${heroe.experiencia}/${heroe.nivel * 100}`
+      );
       console.log(`   💚 Vida: ${heroe.vida}/${heroe.vidaMaxima}`);
       if (heroe.mana !== undefined) {
         console.log(`   💙 Mana: ${heroe.mana}/${heroe.manaMaximo}`);

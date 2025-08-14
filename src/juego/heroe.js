@@ -4,15 +4,13 @@ import { Inventario } from './inventario.js';
 export class Heroe extends Personaje {
   #experiencia;
   #nivel;
-  #vidas;
   #inventario;
   #armaEquipada;
 
-  constructor(nombre, vida, experiencia = 0, nivel = 1, vidas = 3) {
+  constructor(nombre, vida, experiencia = 0, nivel = 1) {
     super(nombre, vida);
     this.#experiencia = experiencia;
     this.#nivel = nivel;
-    this.#vidas = vidas;
     this.#inventario = new Inventario();
     this.#armaEquipada = null;
   }
@@ -22,9 +20,6 @@ export class Heroe extends Personaje {
   }
   get nivel() {
     return this.#nivel;
-  }
-  get vidas() {
-    return this.#vidas;
   }
   get inventario() {
     return this.#inventario;
@@ -42,16 +37,8 @@ export class Heroe extends Personaje {
 
   recibirDanio(danio) {
     super.recibirDanio(danio);
-    if (!this.estaVivo() && this.#vidas > 0) {
-      this.#vidas--;
-      console.log(
-        `${this.nombre} ha perdido una vida. Vidas restantes: ${this.#vidas}`
-      );
-      // Revivir con una parte de la vida
-      if (this.#vidas > 0) {
-        super.curar(Math.floor(this.vidaMaxima * 0.3));
-        console.log(`${this.nombre} revive con ${this.vida} puntos de vida!`);
-      }
+    if (!this.estaVivo()) {
+      console.log(`${this.nombre} ha sido derrotado.`);
     }
   }
 
@@ -66,6 +53,9 @@ export class Heroe extends Personaje {
   ganarExperiencia(exp) {
     this.#experiencia += exp;
     console.log(`${this.nombre} ha ganado ${exp} de experiencia.`);
+    console.log(
+      `Experiencia actual: ${this.#experiencia}/${this.#nivel * 100}`
+    );
     if (this.#experiencia >= this.#nivel * 100) {
       this.subirNivel();
     }
@@ -80,7 +70,7 @@ export class Heroe extends Personaje {
 
     // 2. Mejoras de vida (común para todos los héroes)
     const vidaAnterior = this.vidaMaxima;
-    super.curar(this.vidaMaxima + 10);
+    super.aumentarVidaMaxima(10);
 
     // 3. Permitir que las subclases apliquen sus mejoras específicas
     this.mejorasEspecificas();
@@ -100,9 +90,5 @@ export class Heroe extends Personaje {
     throw new Error(
       'Método mejorasEspecificas debe ser implementado por subclases específicas (Guerrero/Mago)'
     );
-  }
-
-  get tieneVidas() {
-    return this.#vidas > 0;
   }
 }

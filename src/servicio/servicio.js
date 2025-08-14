@@ -96,6 +96,12 @@ export class GameService {
 
       if (!monstruo.estaVivo()) {
         resultado.push(`¡${monstruo.nombre} ha sido derrotado!`);
+        // Ganar experiencia al derrotar al monstruo
+        const expGanada = monstruo.poder * 10 + 25; // Experiencia basada en el poder del monstruo
+        heroe.ganarExperiencia(expGanada);
+        resultado.push(
+          `${heroe.nombre} gana ${expGanada} puntos de experiencia!`
+        );
         resultado.push(`¡${heroe.nombre} gana el combate!`);
         break;
       }
@@ -116,7 +122,6 @@ export class GameService {
       resultado.push('');
       turno++;
 
-      // Evitar combates infinitos
       if (turno > 20) {
         resultado.push('El combate es demasiado largo. ¡Empate!');
         break;
@@ -164,9 +169,7 @@ export class GameService {
       item.aplicarEfecto(heroe);
       return `${heroe.nombre} usa ${item.nombre} y recupera según su tipo`;
     } else if (item instanceof Hechizo) {
-      // Verificar si el héroe puede usar el hechizo
       if (!item.puedeUsarse(heroe)) {
-        // Devolver el item al inventario si no puede usarlo
         heroe.inventario.agregarItem(item);
         return `${heroe.nombre} no tiene suficiente mana para usar ${item.nombre}`;
       }

@@ -5,8 +5,15 @@ export class Mago extends Heroe {
   #manaMaximo;
   #inteligencia;
 
-  constructor(nombre, vida = 80, mana = 50, inteligencia = 12) {
-    super(nombre, vida);
+  constructor(
+    nombre,
+    vida = 80,
+    mana = 50,
+    inteligencia = 12,
+    experiencia = 0,
+    nivel = 1
+  ) {
+    super(nombre, vida, experiencia, nivel);
     this.#mana = mana;
     this.#manaMaximo = mana;
     this.#inteligencia = inteligencia;
@@ -79,10 +86,19 @@ export class Mago extends Heroe {
   // Sobrescribir mejorasEspecificas para aumentar también el mana
   mejorasEspecificas() {
     const manaAnterior = this.#manaMaximo;
+    const inteligenciaAnterior = this.#inteligencia;
+
     this.#manaMaximo += 15;
     this.#mana = this.#manaMaximo; // Recuperar mana completo
+    this.#inteligencia += 2; // Aumentar inteligencia al subir de nivel
+
     console.log(
       `Mana máximo aumentado de ${manaAnterior} a ${this.#manaMaximo}`
+    );
+    console.log(
+      `Inteligencia aumentada de ${inteligenciaAnterior} a ${
+        this.#inteligencia
+      }`
     );
   }
 }

@@ -13,6 +13,9 @@ export class Monstruo extends Personaje {
   get poderAtaque() {
     return this.#poderAtaque;
   }
+  get poder() {
+    return this.#poderAtaque;
+  }
   get tipo() {
     return this.#tipo;
   }

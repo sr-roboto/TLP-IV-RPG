@@ -33,6 +33,11 @@ export class Personaje {
     this.#vida = Math.min(this.#vidaMaxima, this.#vida + cantidad);
   }
 
+  aumentarVidaMaxima(cantidad) {
+    this.#vidaMaxima += cantidad;
+    this.#vida = this.#vidaMaxima; // Curar completamente al subir de nivel
+  }
+
   estaVivo() {
     return this.#vida > 0;
   }

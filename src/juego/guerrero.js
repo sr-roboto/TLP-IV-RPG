@@ -3,8 +3,8 @@ import { Heroe } from './heroe.js';
 export class Guerrero extends Heroe {
   #fuerza;
 
-  constructor(nombre, vida = 100, fuerza = 15) {
-    super(nombre, vida);
+  constructor(nombre, vida = 100, fuerza = 15, experiencia = 0, nivel = 1) {
+    super(nombre, vida, experiencia, nivel);
     this.#fuerza = fuerza;
   }
 
