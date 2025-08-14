@@ -1,4 +1,4 @@
-import { Personaje } from './character.js';
+import { Personaje } from './personaje.js';
 
 export class Monstruo extends Personaje {
   constructor(salud, nombre, stamina, mana, nivel, tipo, poderAtaque) {

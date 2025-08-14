@@ -1,27 +1,15 @@
-import { Personaje } from './character.js';
+import { Personaje } from './personaje.js';
 
 export class Heroe extends Personaje {
-  constructor(
-    salud,
-    nombre,
-    stamina,
-    mana,
-    nivel,
-    vidas,
-    experiencia,
-    tipoDaño
-  ) {
+  constructor(salud, nombre, stamina, mana, nivel, vidas, experiencia) {
     super(salud, nombre, stamina, mana, nivel);
     this.vidas = vidas;
     this.experiencia = experiencia;
-    this.tipoDaño = tipoDaño;
   }
 
   atacar(objetivo) {
     const daño = this.calcularDaño();
-    console.log(
-      `${this.nombre} ataca con ${this.tipoDaño} causando ${daño} de daño`
-    );
+    console.log(`${this.nombre} ataca causando ${daño} de daño`);
     objetivo.recibirAtaque(daño);
     this.ganarExperiencia(daño * 0.2);
   }

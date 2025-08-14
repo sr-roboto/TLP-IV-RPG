@@ -1,5 +1,7 @@
 import * as readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
+import { mage } from './game/mago.js';
+console.log(mage);
 
 const rl = readline.createInterface({ input, output });
 
