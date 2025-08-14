@@ -93,8 +93,8 @@ class Protagonista extends Personaje {
 class Monstruo extends Personaje {
   constructor(salud, nombre, stamina, mana, nivel, tipo, poderAtaque) {
     super(salud, nombre, stamina, mana, nivel);
-    this.tipo = tipo;
     this.poderAtaque = poderAtaque;
+    this.tipo = tipo;
   }
 
   atacar(objetivo) {
@@ -123,7 +123,7 @@ class Monstruo extends Personaje {
 }
 
 const tobi = new Protagonista(100, 'Tobi', 50, 30, 1, 3, 0, 'cortante');
-const monstruo = new Monstruo(80, 'Goblin', 20, 10, 1, 'bestia', 15);
+const monstruo = new Monstruo(80, 'Goblin', 20, 10, 1, 15, 'bestia');
 
 console.log(tobi);
 tobi.atacar(monstruo);
