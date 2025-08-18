@@ -1,323 +1,139 @@
-# RPG Game - Juego de Rol Básico
+# RPG - Proyecto POO
 
-## Descripción del Proyecto
+Este es un juego **RPG** que demuestra los conceptos fundamentales de
+Programación Orientada a Objetos de forma clara y concisa:
 
-Este es un juego de rol (RPG) básico implementado en JavaScript que demuestra
-conceptos de programación orientada a objetos como herencia, polimorfismo y
-encapsulación.
+- **Herencia** (Personaje → Guerrero/Mago/Monstruo)
+- **Polimorfismo** (método `atacar()` diferente en cada clase)
+- **Encapsulación** (atributos privados con `#`)
+- **Factory Pattern** (ItemFactory para crear items)
 
-## Características Principales
+## Diagrama de Clases
 
-- **Sistema de Personajes**: Héroes (Guerrero, Mago) y Monstruos
-- **Sistema de Experiencia y Niveles**: Progresión de héroes
-- **Sistema de Inventario**: Gestión de items (Armas, Pociones, Hechizos)
-- **Sistema de Combate**: Combate por turnos polimórfico
-- **Interfaz CLI**: Menú interactivo en terminal
+### **Modelado**
 
-## Diagrama de Clases - Jerarquía Corregida
+- **Entidades**: Personaje, Guerrero, Mago, Monstruo, Item, JuegoServicio
+- **Clase base**: `Personaje` con subclases `Guerrero`, `Mago` y `Monstruo`
+- **Polimorfismo**: Método `atacar()` implementado diferente en cada subclase
+- **Encapsulación**: Todos los atributos importantes son privados (`#nombre`,
+  `#vida`, `#fuerza`, `#mana`, `#poderAtaque`, `#inventario`)
+- **Factory**: `ItemFactory` usa patrón factory para crear diferentes tipos de
+  items
 
-```.
-                     Personaje (clase base)
-                   ┌─────────────────────────┐
-                   │ #nombre, #vida          │
-                   │ atacar(), estaVivo()    │
-                   └─────────────────────────┘
-                            │
-                  ┌─────────┼─────────┐
-                  │                   │
-                Héroe              Monstruo
-    ┌─────────────────────┐    ┌─────────────────┐
-    │ + #experiencia      │    │ #poderAtaque    │
-    │ + #nivel            │    │ #tipo           │
-    │ + #inventario       │    │ atacar()        │
-    │ + #armaEquipada     │    └─────────────────┘
-    │ equiparArma()       │
-    │ ganarExperiencia()  │
-    └─────────────────────┘
-             │
-      ┌──────┼──────┐
-      │             │
-  Guerrero        Mago
-┌─────────────┐ ┌──────────────┐
-│ #fuerza     │ │ #mana        │
-│ atacar()    │ │ #inteligencia│
-│ defender()  │ │ atacar()     │
-└─────────────┘ │ recuperarMana│
-                └──────────────┘
+### **Clases de dominio**
 
-                         Item (clase base)
-                   ┌─────────────────────────┐
-                   │ #nombre, #valor         │
-                   │ aplicarEfecto()         │
-                   └─────────────────────────┘
-                            │
-        ┌───────────────────┼───────────────────┐
-        │                   │                   │
-      Arma               Pocion              Hechizo
-┌─────────────┐    ┌─────────────┐    ┌─────────────┐
-│ #danio      │    │ #curacion   │    │ #costoMana  │
-│ #tipo       │    │ #tipo       │    │ #poder      │
-└─────────────┘    └─────────────┘    │ #tipo       │
-                                      └─────────────┘
-```
+- **Clase base**: `Personaje` con atributos y métodos básicos
+- **Subclases**: `Guerrero` (combate físico), `Mago` (combate mágico),
+  `Monstruo` (enemigos)
+- **Override**: Cada subclase implementa `atacar()` de manera diferente
+- **Sistema de Items**: Inventario básico con `agregarItem()` y `usarItem()`
+- **Métodos polimórficos**: `atacar()` funciona distinto según el tipo de
+  personaje
 
-## Arquitectura y Responsabilidades
+### **Servicio de orquestación**
 
-### 👤 Personaje (Clase Base)
+- **JuegoServicio**: Único servicio que mantiene colección interna de héroes
+  (`Map`)
+- **CRUD**: Crear/leer héroes, crear monstruos
+- **Casos de uso**: Combate automático, estadísticas, gestión de inventarios
+- **Reglas de negocio**: Validaciones básicas, límites de combate, recompensas
+- **Items iniciales**: Cada héroe recibe un item inicial al crearse
+- **Recompensas**: Items aleatorios al ganar combates
 
-- **Propósito:** Características básicas de cualquier ser viviente
-- **Atributos:** `#nombre`, `#vida`, `#vidaMaxima`
-- **Métodos:** `atacar()`, `recibirDanio()`, `curar()`, `estaVivo()`
-- **Herencia:** Base para Héroe y Monstruo
+### **CLI**
 
-### 🦸 Héroe (Clase Intermedia)
+- **Sin interfaz gráfica**: Solo terminal con menú simple
+- **Menú textual**: 6 opciones esenciales (incluyendo inventario)
+- **Validación**: Entrada básica con manejo de errores
+- **Gestión de inventario**: Ver y usar items desde el CLI
+- **Interacción**: Flujo intuitivo para demostrar conceptos POO
 
-- **Propósito:** Características específicas de aventureros controlados por el
-  jugador
-- **Añade:** `#experiencia`, `#nivel`, `#inventario`, `#armaEquipada`
-- **Nuevos métodos:** `equiparArma()`, `ganarExperiencia()`, `subirNivel()`
-- **Herencia:** Base para Guerrero y Mago
+## 🚀 Cómo Ejecutar
 
-### ⚔️ Guerrero (Especialización)
-
-- **Propósito:** Combatiente cuerpo a cuerpo
-- **Añade:** `#fuerza`
-- **Especializa:** `atacar()` con fuerza física y uso de armas
-
-### 🧙 Mago (Especialización)
-
-- **Propósito:** Combatiente mágico
-- **Añade:** `#mana`, `#inteligencia`
-- **Especializa:** `atacar()` con hechizos que consumen mana
-
-### 👹 Monstruo (Enemigos Simples)
-
-- **Propósito:** Enemigos controlados por IA
-- **Añade:** `#poderAtaque`, `#tipo`
-- **Especializa:** `atacar()` con lógica simple
-- **Nota:** Hereda directamente de Personaje (no necesita inventario)
-
-## Modularización de Items
-
-### 📦 Item (Clase Base)
-
-- **Archivo:** `src/juego/item.js`
-- **Propósito:** Interfaz común para todos los items
-- **Método polimórfico:** `aplicarEfecto(personaje)`
-
-### ⚔️ Arma (Item Especializado)
-
-- **Archivo:** `src/juego/arma.js`
-- **Propósito:** Weapons que aumentan el daño de ataque
-- **Efecto:** Retorna daño adicional para combate
-
-### 🧪 Poción (Item Especializado)
-
-- **Archivo:** `src/juego/pocion.js`
-- **Propósito:** Consumibles que curan o mejoran atributos
-- **Tipos:** Vida, Mana, Fuerza
-
-### 🔮 Hechizo (Item Especializado)
-
-- **Archivo:** `src/juego/hechizo.js`
-- **Propósito:** Habilidades mágicas con costo de mana
-- **Tipos:** Ofensivo, Curativo, Defensivo
-
-## Decisiones de Diseño
-
-### 1. Jerarquía de Herencia Correcta
-
-**ANTES (Problemático):**
-
-- Personaje tenía inventario y armas (demasiado específico)
-- Guerrero y Mago heredaban directamente de Personaje
-- Duplicación de funcionalidad entre clases
-
-**AHORA (Correcto):**
-
-- **Personaje**: Solo características básicas (nombre, vida, atacar)
-- **Héroe**: Añade características de aventurero (inventario, experiencia,
-  nivel)
-- **Guerrero/Mago**: Heredan de Héroe correctamente
-- **Monstruo**: Hereda directamente de Personaje (más simple)
-
-### 2. Encapsulación con Campos Privados (#)
-
-- Los atributos críticos como vida, mana, daño están encapsulados
-- Se usan getters para acceso controlado
-- Ejemplo: `#vida`, `#mana`, `#danio`
-
-### 3. Polimorfismo
-
-- Método `atacar()` implementado diferente en cada clase
-- Método `aplicarEfecto()` varía según tipo de item
-- Permite agregar nuevos tipos sin modificar código existente
-
-### 4. Modularización de Items
-
-- `item.js`: Solo la clase base Item
-- `arma.js`, `pocion.js`, `hechizo.js`: Cada tipo en su archivo
-- Fácil mantenimiento y escalabilidad
-- Principio de responsabilidad única
-
-### 5. Patrón Service
-
-- `GameService` centraliza la lógica de negocio
-- Mantiene colecciones de entidades
-- Orquesta las interacciones entre objetos
-
-## Estructura del Proyecto
-
-```.
-src/
-├── main.js              # CLI y punto de entrada
-├── juego/
-│   ├── personaje.js     # Clase base abstracta
-│   ├── heroe.js         # Clase intermedia
-│   ├── guerrero.js      # Guerrero extends Héroe
-│   ├── mago.js          # Mago extends Héroe
-│   ├── monstruo.js      # Monstruo extends Personaje
-│   ├── inventario.js    # Gestión de items
-│   ├── item.js          # Clase base Item
-│   ├── arma.js          # Arma extends Item
-│   ├── pocion.js        # Pocion extends Item
-│   └── hechizo.js       # Hechizo extends Item
-└── servicio/
-    └── servicio.js      # Lógica de negocio
-```
-
-## Instalación y Ejecución
-
-### Requisitos
-
-- Node.js 14+
-
-### Cómo ejecutar
-
-1. Clona el repositorio
-2. Navega al directorio del proyecto
-3. Ejecuta el juego:
+### Instalación y Ejecución
 
 ```bash
+# Navegar al directorio del proyecto
+cd TLP-IV-RPG
+
+# Ejecutar el juego
+npm run dev
+# o
 node src/main.js
+
+# Ejecutar pruebas
+npm test
+# o
+node src/test.js
 ```
 
-## Flujos de Prueba Documentados
+## 📦 Sistema de Items
 
-### Flujo 1: Creación de Héroe y Combate Básico
+El juego incluye un sistema básico de items que demuestra:
 
-1. Ejecutar `node src/main.js`
-2. Seleccionar opción "1" (Crear Héroe)
-3. Ingresar nombre "Aragorn"
-4. Seleccionar tipo "1" (Guerrero)
-5. Verificar en opción "2" (Ver Héroes) el nivel y experiencia inicial
-6. Seleccionar opción "3" (Iniciar Combate)
-7. Seleccionar héroe creado
-8. Seleccionar enemigo "1" (Goblin)
-9. Observar combate automático y ganancia de experiencia
+### **Tipos de Items**
 
-### Flujo 2: Gestión de Inventario
+- **Poción de Curación**: Restaura 30 HP
+- **Poción de Mana**: Restaura 25 MP (solo magos)
+- **Espada de Hierro**: Aumenta fuerza permanentemente +5
 
-1. Crear un héroe (seguir Flujo 1, pasos 1-4)
-2. Seleccionar opción "4" (Ver Inventario)
-3. Observar items iniciales
-4. Seleccionar opción "5" (Equipar Arma)
-5. Equipar "Espada Básica"
-6. Verificar en inventario que está equipada
+### **Mecánicas**
 
-### Flujo 3: Combate con Mago
+1. **Items iniciales**: Los guerreros reciben Poción de Curación, los magos
+   Poción de Mana
+2. **Recompensas**: Al ganar combates se obtienen items aleatorios
+3. **Uso**: Opción de menú 4 para gestionar inventarios
+4. **Efectos**: Cada item tiene efectos específicos según el tipo de héroe
 
-1. Crear héroe Mago llamado "Gandalf"
-2. Iniciar combate vs Orc
-3. Observar uso de mana en ataques
-4. Si el mana se agota, el mago no puede atacar
+## 🧪 Pruebas Manuales
 
-### Flujo 4: Uso de Hechizos y Pociones
-
-1. Crear un Mago llamado "Gandalf"
-2. Ver inventario (opción 4) - observar "Curación Menor" y "Poción de Mana"
-3. Combatir contra Orc para reducir vida
-4. Seleccionar opción "6" (Usar Item)
-5. Usar "Curación Menor" para recuperar vida (consume mana)
-6. Si el mana está bajo, usar "Poción de Mana" para recuperarlo
-7. Observar cómo diferentes items tienen efectos específicos
-
-### Flujo 5: Sistema de Experiencia y Niveles
-
-1. Crear héroe de cualquier tipo
-2. Ver héroe en opción "2" - observar Nivel 1, Experiencia 0/100
-3. Realizar combate contra monstruo débil (Goblin)
-4. Observar ganancia de experiencia durante el combate
-5. Ver héroe nuevamente - verificar experiencia acumulada
-6. Realizar múltiples combates hasta alcanzar 100 exp
-7. Observar subida de nivel automática y mejora de atributos
-
-### Flujo 6: Múltiples Héroes
-
-1. Crear Guerrero "Gimli"
-2. Crear Mago "Radagast"
-3. Ver lista de héroes (opción 2)
-4. Combatir con cada uno contra diferentes enemigos
-5. Observar diferentes estilos de combate y ganancia de experiencia
-
-## Conceptos Implementados Correctamente
-
-### 🧬 Principios de Programación Orientada a Objetos
-
-- **Herencia**: Jerarquía correcta Personaje → Héroe → {Guerrero, Mago}
-- **Polimorfismo**: Método `atacar()` implementado diferente en cada clase
-- **Encapsulación**: Campos privados (#) en todas las clases con getters
-- **Abstracción**: GameService oculta la complejidad del sistema
-
-### 📁 Modularización y Arquitectura
-
-- **Separación de responsabilidades**: Cada clase en su archivo
-- **Principio de responsabilidad única**: Una clase, una responsabilidad
-- **Composición**: Héroe contiene Inventario, no hereda de él
-- **Patrón Service**: Centralizador de lógica de negocio
-
-### ⚡ Funcionalidades del Sistema
-
-- **13 tipos de items diferentes**: 5 armas, 4 pociones, 4 hechizos
-- **Sistema de combate polimórfico**: Cada clase ataca diferente
-- **Sistema de experiencia y niveles**: Progresión automática de héroes
-- **Gestión de inventarios**: Solo héroes tienen inventario
-- **Equipamiento de armas**: Mejora el daño de ataque
-- **Sistema de vida única**: Combate directo sin revivals
-
-## Pruebas Disponibles
-
-### Pruebas Automatizadas
+### Creación de Héroes y Polimorfismo
 
 ```bash
-node test-simple.js        # Prueba básica de jerarquía
-node test-jerarquia.js     # Prueba completa de herencia
-node test-modular.js       # Prueba de modularización
+1. Ejecutar: npm run dev
+2. Opción 1: Crear Héroe - crear un Guerrero "Conan"
+3. Opción 1: Crear Héroe - crear un Mago "Gandalf"
+4. Opción 3: Iniciar Combate - elegir Conan
+5. Observar: "⚔️ Conan ataca con su espada!" (polimorfismo)
+6. Combate con Gandalf - observar: "✨ Gandalf lanza un hechizo!"
+7. Ver cómo cada clase ataca diferente (POLIMORFISMO EN ACCIÓN)
+8. Ganar combate y recibir item aleatorio
 ```
 
-### Juego Interactivo
+### Sistema de Items y Encapsulación
 
 ```bash
-node src/main.js          # Juego completo con menú CLI
+1. Opción 2: Ver Héroes - observar que cada héroe tiene items iniciales
+2. Opción 4: Ver/Usar Inventario - seleccionar un héroe
+3. Ver inventario encapsulado (solo copia es accesible)
+4. Usar una Poción de Curación con guerrero herido
+5. Usar Poción de Mana con mago (método polimórfico restaurarMana)
+6. Observar efectos específicos según tipo de personaje
 ```
 
-## Arquitectura Final Lograda
+### Encapsulación y CRUD
 
-✅ **Jerarquía correcta**: Personaje → Héroe → {Guerrero, Mago}  
-✅ **Modularización completa**: Cada clase en su archivo  
-✅ **Encapsulación total**: Todos los campos privados  
-✅ **Polimorfismo funcional**: Métodos implementados diferente  
-✅ **Sistema escalable**: Fácil agregar nuevos tipos  
-✅ **Código mantenible**: Separación clara de responsabilidades
+```bash
+1. Opción 1: Crear Héroe - probar validaciones
+2. Intentar nombre vacío (error por validación)
+3. Crear héroe válido - ver atributos encapsulados
+4. Opción 5: Estadísticas - ver acceso a datos privados via getters públicos
+5. Observar cantidad de items en estadísticas
+```
 
-## Posibles Extensiones Futuras
+**Resultado esperado**:
 
-- **Más tipos de héroes**: Arquero, Paladín, Ladrón
-- **Más items y hechizos**: Armaduras, anillos, pergaminos mágicos
-- **Sistema de rareza**: Items comunes, raros, legendarios
-- **Habilidades especiales**: Cooldowns y efectos de área
-- **Sistema de tienda**: Comprar/vender items con oro
-- **Guardado de partidas**: Persistencia de progreso del héroe
-- **Más enemigos**: Jefes con habilidades especiales y mayor recompensa
-- **Sistema de guild**: Múltiples héroes trabajando juntos
-- **Mazmorras**: Secuencias de combates con recompensas progresivas
+- Demostración clara de los 3 pilares de POO
+- Sistema de items funcional con factory pattern
+- Código simple de explicar en clase
+- Funcionalidad completa en pocas líneas
+
+## Extensiones Posibles
+
+Si se quisiera extender el proyecto manteniendo la simplicidad:
+
+1. **Nuevos tipos de héroe**: Crear `Arquero` clase que herede de `Personaje`
+2. **Más tipos de items**: Añadir más casos al `ItemFactory.crear()`
+3. **Persistencia**: Guardar/cargar héroes e inventarios en archivo JSON
+4. **Habilidades especiales**: Métodos adicionales en subclases
+5. **Items equipables**: Armas y armaduras que se equipan permanentemente
