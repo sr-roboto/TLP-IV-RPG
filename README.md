@@ -6,7 +6,6 @@ Programación Orientada a Objetos de forma clara y concisa:
 - **Herencia** (Personaje → Guerrero/Mago/Monstruo)
 - **Polimorfismo** (método `atacar()` diferente en cada clase)
 - **Encapsulación** (atributos privados con `#`)
-- **Factory Pattern** (ItemFactory para crear items)
 
 ## Diagrama de Clases
 ![RPG_](https://github.com/user-attachments/assets/d4c59dc0-17a3-49c9-b794-dd4abd3d23a4)
@@ -18,8 +17,6 @@ Programación Orientada a Objetos de forma clara y concisa:
 - **Polimorfismo**: Método `atacar()` implementado diferente en cada subclase
 - **Encapsulación**: Todos los atributos importantes son privados (`#nombre`,
   `#vida`, `#fuerza`, `#mana`, `#poderAtaque`, `#inventario`)
-- **Factory**: `ItemFactory` usa patrón factory para crear diferentes tipos de
-  items
 
 ### **Clases de dominio**
 
@@ -85,42 +82,6 @@ El juego incluye un sistema básico de items que demuestra:
 2. **Recompensas**: Al ganar combates se obtienen items aleatorios
 3. **Uso**: Opción de menú 4 para gestionar inventarios
 4. **Efectos**: Cada item tiene efectos específicos según el tipo de héroe
-
-## 🧪 Pruebas Manuales
-
-### Creación de Héroes y Polimorfismo
-
-```bash
-1. Ejecutar: npm run dev
-2. Opción 1: Crear Héroe - crear un Guerrero "Conan"
-3. Opción 1: Crear Héroe - crear un Mago "Gandalf"
-4. Opción 3: Iniciar Combate - elegir Conan
-5. Observar: "⚔️ Conan ataca con su espada!" (polimorfismo)
-6. Combate con Gandalf - observar: "✨ Gandalf lanza un hechizo!"
-7. Ver cómo cada clase ataca diferente (POLIMORFISMO EN ACCIÓN)
-8. Ganar combate y recibir item aleatorio
-```
-
-### Sistema de Items y Encapsulación
-
-```bash
-1. Opción 2: Ver Héroes - observar que cada héroe tiene items iniciales
-2. Opción 4: Ver/Usar Inventario - seleccionar un héroe
-3. Ver inventario encapsulado (solo copia es accesible)
-4. Usar una Poción de Curación con guerrero herido
-5. Usar Poción de Mana con mago (método polimórfico restaurarMana)
-6. Observar efectos específicos según tipo de personaje
-```
-
-### Encapsulación y CRUD
-
-```bash
-1. Opción 1: Crear Héroe - probar validaciones
-2. Intentar nombre vacío (error por validación)
-3. Crear héroe válido - ver atributos encapsulados
-4. Opción 5: Estadísticas - ver acceso a datos privados via getters públicos
-5. Observar cantidad de items en estadísticas
-```
 
 **Resultado esperado**:
 
