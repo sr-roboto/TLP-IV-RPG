@@ -14,12 +14,12 @@ export class Monstruo extends Personaje {
 
   atacar(objetivo) {
     const danio = Math.floor(Math.random() * this.#poderAtaque) + 3;
-    console.log(`👹 ${this.nombre} ataca ferozmente!`);
+    console.log(`${this.nombre} ataca ferozmente!`);
     objetivo.recibirDanio(danio);
     return danio;
   }
 
   toString() {
-    return `👹 ${super.toString()}`;
+    return `${super.toString()}`;
   }
 }

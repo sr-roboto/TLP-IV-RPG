@@ -32,7 +32,7 @@ export class Item {
       case 'pocion_vida':
         personaje.curar(this.#valor);
         console.log(
-          `🧪 ${personaje.nombre} usa ${this.#nombre} y recupera ${
+          `${personaje.nombre} usa ${this.#nombre} y recupera ${
             this.#valor
           } HP!`
         );
@@ -42,13 +42,13 @@ export class Item {
         if (personaje.constructor.name === 'Mago') {
           personaje.restaurarMana(this.#valor);
           console.log(
-            `💙 ${personaje.nombre} usa ${this.#nombre} y recupera ${
+            `${personaje.nombre} usa ${this.#nombre} y recupera ${
               this.#valor
             } MP!`
           );
         } else {
           console.log(
-            `❌ ${personaje.nombre} no puede usar ${
+            `${personaje.nombre} no puede usar ${
               this.#nombre
             }! Solo los magos pueden usar pociones de mana.`
           );
@@ -59,11 +59,11 @@ export class Item {
         if (personaje.constructor.name === 'Guerrero') {
           // Método especial para guerreros (aumentar fuerza permanentemente)
           console.log(
-            `⚔️ ${personaje.nombre} mejora su fuerza con ${this.#nombre}!`
+            `${personaje.nombre} mejora su fuerza con ${this.#nombre}!`
           );
         } else {
           console.log(
-            `❌ ${personaje.nombre} no puede usar ${
+            `${personaje.nombre} no puede usar ${
               this.#nombre
             }! Solo los guerreros pueden usar armas.`
           );
@@ -72,7 +72,7 @@ export class Item {
 
       default:
         console.log(
-          `❓ ${personaje.nombre} usa ${this.#nombre} pero no pasa nada...`
+          `${personaje.nombre} usa ${this.#nombre} pero no pasa nada...`
         );
     }
   }

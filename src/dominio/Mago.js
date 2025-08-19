@@ -28,7 +28,7 @@ export class Mago extends Personaje {
     const costoMana = 10;
 
     if (this.#mana < costoMana) {
-      console.log(`💙 ${this.nombre} no tiene mana! Ataque débil.`);
+      console.log(`${this.nombre} no tiene mana! Ataque débil.`);
       const danio = Math.floor(Math.random() * 5) + 1;
       objetivo.recibirDanio(danio);
       return danio;
@@ -36,14 +36,14 @@ export class Mago extends Personaje {
 
     this.#mana -= costoMana;
     const danio = Math.floor(Math.random() * this.#inteligencia) + 8;
-    console.log(`✨ ${this.nombre} lanza un hechizo! Mana: ${this.#mana}`);
+    console.log(`${this.nombre} lanza un hechizo! Mana: ${this.#mana}`);
     objetivo.recibirDanio(danio);
     return danio;
   }
 
   agregarItem(item) {
     this.#inventario.push(item);
-    console.log(`📦 ${this.nombre} obtuvo: ${item.nombre}`);
+    console.log(`${this.nombre} obtuvo: ${item.nombre}`);
   }
 
   usarItem(indice) {
@@ -58,12 +58,12 @@ export class Mago extends Personaje {
   restaurarMana(cantidad) {
     this.#mana = Math.min(50, this.#mana + cantidad); // Máximo 50 de mana
     console.log(
-      `💙 ${this.nombre} restaura ${cantidad} de mana. Mana: ${this.#mana}/50`
+      `${this.nombre} restaura ${cantidad} de mana. Mana: ${this.#mana}/50`
     );
   }
 
   toString() {
-    return `🧙 Mago ${super.toString()} - Int: ${this.#inteligencia}, Mana: ${
+    return `Mago ${super.toString()} - Int: ${this.#inteligencia}, Mana: ${
       this.#mana
     }`;
   }

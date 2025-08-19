@@ -34,7 +34,7 @@ export class JuegoServicio {
     }
 
     this.#heroes.set(nombre, heroe);
-    console.log(`✅ Héroe ${nombre} creado!`);
+    console.log(`Héroe ${nombre} creado!`);
     return heroe;
   }
 
@@ -53,7 +53,7 @@ export class JuegoServicio {
   iniciarCombate(nombreHeroe) {
     const heroe = this.obtenerHeroe(nombreHeroe);
     if (!heroe) {
-      throw new Error(`Héroe "${nombreHeroe}" no encontrado`);
+      throw new Error(`Héroe "${nombreHeroe}" no encontrado!`);
     }
 
     if (!heroe.estaVivo()) {
@@ -61,7 +61,7 @@ export class JuegoServicio {
     }
 
     const monstruo = this.crearMonstruo();
-    console.log(`\n⚔️ ¡${heroe.nombre} vs ${monstruo.nombre}!`);
+    console.log(`\n¡${heroe.nombre} vs ${monstruo.nombre}!`);
 
     let turnos = 0;
     while (heroe.estaVivo() && monstruo.estaVivo() && turnos < 10) {
@@ -71,7 +71,7 @@ export class JuegoServicio {
       heroe.atacar(monstruo);
 
       if (!monstruo.estaVivo()) {
-        console.log(`\n🏆 ¡${heroe.nombre} ganó!`);
+        console.log(`\n¡${heroe.nombre} ganó!`);
 
         const recompensas = [
           'Poción de Curación',
@@ -81,7 +81,7 @@ export class JuegoServicio {
         const recompensa =
           recompensas[Math.floor(Math.random() * recompensas.length)];
         heroe.agregarItem(ItemGenerador.crear(recompensa));
-        console.log(`🎁 Recibiste: ${recompensa}`);
+        console.log(`Recibiste: ${recompensa}`);
         break;
       }
 
@@ -89,7 +89,7 @@ export class JuegoServicio {
       monstruo.atacar(heroe);
 
       if (!heroe.estaVivo()) {
-        console.log(`\n💀 ${heroe.nombre} fue derrotado...`);
+        console.log(`\n${heroe.nombre} fue derrotado...`);
         break;
       }
 

@@ -20,14 +20,14 @@ export class Guerrero extends Personaje {
 
   atacar(objetivo) {
     const danio = Math.floor(Math.random() * this.#fuerza) + 5;
-    console.log(`⚔️ ${this.nombre} ataca con su espada!`);
+    console.log(`${this.nombre} ataca con su espada!`);
     objetivo.recibirDanio(danio);
     return danio;
   }
 
   agregarItem(item) {
     this.#inventario.push(item);
-    console.log(`📦 ${this.nombre} obtuvo: ${item.nombre}`);
+    console.log(`${this.nombre} obtuvo: ${item.nombre}`);
   }
 
   usarItem(indice) {
@@ -40,6 +40,6 @@ export class Guerrero extends Personaje {
   }
 
   toString() {
-    return `⚔️ Guerrero ${super.toString()} - Fuerza: ${this.#fuerza}`;
+    return `Guerrero ${super.toString()} - Fuerza: ${this.#fuerza}`;
   }
 }

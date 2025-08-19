@@ -8,14 +8,14 @@ class CliRpg {
 
   mostrarMenu() {
     console.log('\n' + '='.repeat(40));
-    console.log('🎮 RPG  - MENÚ PRINCIPAL');
+    console.log('RPG  - MENÚ PRINCIPAL');
     console.log('='.repeat(40));
-    console.log('1. 🆕 Crear Héroe');
-    console.log('2. 📋 Ver Héroes');
-    console.log('3. ⚔️  Iniciar Combate');
-    console.log('4. 🎒 Ver/Usar Inventario');
-    console.log('5. 📊 Ver Estadísticas');
-    console.log('6. 🚪 Salir');
+    console.log('1.Crear Héroe');
+    console.log('2.Ver Héroes');
+    console.log('3.Iniciar Combate');
+    console.log('4.Ver/Usar Inventario');
+    console.log('5.Ver Estadísticas');
+    console.log('6.Salir');
     console.log('='.repeat(40));
   }
 
@@ -24,12 +24,12 @@ class CliRpg {
   }
 
   crearHeroe() {
-    console.log('\n--- 🆕 CREAR NUEVO HÉROE ---');
+    console.log('\n--- CREAR NUEVO HÉROE ---');
 
     try {
       const nombre = this.preguntar('Nombre del héroe: ');
       if (!nombre) {
-        console.log('❌ El nombre no puede estar vacío');
+        console.log('El nombre no puede estar vacío');
         return;
       }
 
@@ -40,19 +40,19 @@ class CliRpg {
       const tipoHeroe =
         tipo === '1' ? 'guerrero' : tipo === '2' ? 'mago' : null;
       if (!tipoHeroe) {
-        console.log('❌ Tipo inválido');
+        console.log('Tipo inválido');
         return;
       }
 
       const heroe = this.juegoServicio.crearHeroe(tipoHeroe, nombre);
       console.log(`\n${heroe.toString()}`);
     } catch (error) {
-      console.log(`❌ Error: ${error.message}`);
+      console.log(`Error: ${error.message}`);
     }
   }
 
   verHeroes() {
-    console.log('\n--- 📋 LISTA DE HÉROES ---');
+    console.log('\n--- LISTA DE HÉROES ---');
 
     const heroes = this.juegoServicio.obtenerTodosLosHeroes();
 
@@ -67,14 +67,14 @@ class CliRpg {
   }
 
   iniciarCombate() {
-    console.log('\n--- ⚔️ INICIAR COMBATE ---');
+    console.log('\n--- INICIAR COMBATE ---');
 
     const heroes = this.juegoServicio
       .obtenerTodosLosHeroes()
       .filter((h) => h.estaVivo());
 
     if (heroes.length === 0) {
-      console.log('❌ No hay héroes vivos para combatir');
+      console.log('No hay héroes vivos para combatir');
       return;
     }
 
@@ -87,7 +87,7 @@ class CliRpg {
     const indice = parseInt(seleccion) - 1;
 
     if (indice < 0 || indice >= heroes.length) {
-      console.log('❌ Selección inválida');
+      console.log('Selección inválida');
       return;
     }
 
@@ -95,17 +95,17 @@ class CliRpg {
       const resultado = this.juegoServicio.iniciarCombate(
         heroes[indice].nombre
       );
-      console.log(`\n🏆 Ganador: ${resultado.ganador}`);
+      console.log(`\nGanador: ${resultado.ganador}`);
       console.log(`Turnos: ${resultado.turnos}`);
 
       this.preguntar('Presiona Enter para continuar...');
     } catch (error) {
-      console.log(`❌ Error: ${error.message}`);
+      console.log(`Error: ${error.message}`);
     }
   }
 
   verEstadisticas() {
-    console.log('\n--- 📊 ESTADÍSTICAS ---');
+    console.log('\n--- ESTADÍSTICAS ---');
 
     const stats = this.juegoServicio.obtenerEstadisticas();
 
@@ -115,7 +115,7 @@ class CliRpg {
     if (stats.heroes.length > 0) {
       console.log('\nDetalle:');
       stats.heroes.forEach((heroe) => {
-        const estado = heroe.vida.split('/')[0] === '0' ? '💀' : '❤️';
+        const estado = heroe.vida.split('/')[0] === '0' ? 'ESTA MUERTO' : 'ESTA VIVO';
         console.log(
           `  ${estado} ${heroe.nombre} (${heroe.tipo}) - ${heroe.vida} - Items: ${heroe.inventario}`
         );
@@ -124,12 +124,12 @@ class CliRpg {
   }
 
   gestionarInventario() {
-    console.log('\n--- 🎒 GESTIÓN DE INVENTARIO ---');
+    console.log('\n--- GESTIÓN DE INVENTARIO ---');
 
     const heroes = this.juegoServicio.obtenerTodosLosHeroes();
 
     if (heroes.length === 0) {
-      console.log('❌ No hay héroes. ¡Crea uno primero!');
+      console.log('No hay héroes. ¡Crea uno primero!');
       return;
     }
 
@@ -144,7 +144,7 @@ class CliRpg {
     const indice = parseInt(seleccion) - 1;
 
     if (indice < 0 || indice >= heroes.length) {
-      console.log('❌ Selección inválida');
+      console.log('Selección inválida');
       return;
     }
 
@@ -152,11 +152,11 @@ class CliRpg {
     const inventario = heroe.inventario;
 
     if (inventario.length === 0) {
-      console.log(`📦 ${heroe.nombre} no tiene items`);
+      console.log(`${heroe.nombre} no tiene items`);
       return;
     }
 
-    console.log(`\n📦 Inventario de ${heroe.nombre}:`);
+    console.log(`\nInventario de ${heroe.nombre}:`);
     inventario.forEach((item, index) => {
       console.log(`${index + 1}. ${item.nombre} - ${item.descripcion}`);
     });
@@ -171,19 +171,19 @@ class CliRpg {
     const itemIndice = parseInt(itemSeleccion) - 1;
 
     if (itemIndice < 0 || itemIndice >= inventario.length) {
-      console.log('❌ Selección inválida');
+      console.log('Selección inválida');
       return;
     }
 
     const item = heroe.usarItem(itemIndice);
     if (item) {
-      console.log(`✅ Usaste: ${item.nombre}`);
+      console.log(`Usaste: ${item.nombre}`);
       console.log(`${heroe.toString()}`);
     }
   }
 
   ejecutar() {
-    console.log('🎮 ¡Bienvenido al RPG Simple!');
+    console.log('¡Bienvenido al RPG Simple!');
     console.log('Demuestra: Herencia, Polimorfismo y Encapsulación\n');
 
     let continuar = true;
@@ -210,11 +210,11 @@ class CliRpg {
           this.verEstadisticas();
           break;
         case '6':
-          console.log('👋 ¡Hasta luego!');
+          console.log('¡Hasta luego!');
           continuar = false;
           break;
         default:
-          console.log('❌ Opción inválida. Use 1-6');
+          console.log('Opción inválida. Use 1-6');
       }
     }
   }
