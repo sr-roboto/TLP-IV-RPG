@@ -81,14 +81,6 @@ El juego incluye un sistema básico de items que demuestra:
    Poción de Mana
 2. **Recompensas**: Al ganar combates se obtienen items aleatorios
 3. **Uso**: Opción de menú 4 para gestionar inventarios
-4. **Efectos**: Cada item tiene efectos específicos según el tipo de héroe
-
-**Resultado esperado**:
-
-- Demostración clara de los 3 pilares de POO
-- Sistema de items funcional con factory pattern
-- Código simple de explicar en clase
-- Funcionalidad completa en pocas líneas
 
 ## Extensiones Posibles
 
