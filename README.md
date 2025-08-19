@@ -65,23 +65,6 @@ npm test
 node src/test.js
 ```
 
-## 📦 Sistema de Items
-
-El juego incluye un sistema básico de items que demuestra:
-
-### **Tipos de Items**
-
-- **Poción de Curación**: Restaura 30 HP
-- **Poción de Mana**: Restaura 25 MP (solo magos)
-- **Espada de Hierro**: Aumenta fuerza permanentemente +5
-
-### **Mecánicas**
-
-1. **Items iniciales**: Los guerreros reciben Poción de Curación, los magos
-   Poción de Mana
-2. **Recompensas**: Al ganar combates se obtienen items aleatorios
-3. **Uso**: Opción de menú 4 para gestionar inventarios
-
 ## Extensiones Posibles
 
 Si se quisiera extender el proyecto manteniendo la simplicidad:
