@@ -1,4 +1,4 @@
-![rpg_uml](https://github.com/user-attachments/assets/47ac0da4-d2b4-4d56-93bf-5c067cc013e6)# RPG - Proyecto POO
+# RPG - Proyecto POO
 
 Este es un juego **RPG** que demuestra los conceptos fundamentales de
 Programación Orientada a Objetos de forma clara y concisa:
