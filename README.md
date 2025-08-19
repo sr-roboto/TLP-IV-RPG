@@ -9,8 +9,7 @@ Programación Orientada a Objetos de forma clara y concisa:
 - **Factory Pattern** (ItemFactory para crear items)
 
 ## Diagrama de Clases
-![rpg_uml](https://github.com/user-attachments/assets/d4d2f4ef-d966-4bc8-b15a-cb216f691cf6)
-
+![RPG_](https://github.com/user-attachments/assets/d4c59dc0-17a3-49c9-b794-dd4abd3d23a4)
 
 ### **Modelado**
 
